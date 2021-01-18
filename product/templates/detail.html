@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<div class='row'>
+	<div class='col-2'>
+		<img src='{{ product.icon.url }}' class='image-fluid'/>
+	</div>
+	<div class='col-10'>
+		<a href = {{ product.url }}><h1>{{product.title}}</h1></a>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-8'>
+		<img src='{{ product.image.url }}' height = 500 width = 760 class='image-fluid'/>
+	</div>
+	<div class='col-4'>
+		<br />
+		<a href="javascript:{document.getElementById('upvote').submit()}"><img src='{% static "upvote.jpg" %}' height = 80 width = 80 class='d-inline-block alighn top'></a><b>  {{ product.votes }}</b>
+	</div>
+</div>
+<div class='row pt-2'>
+	<div class='col-6'>
+		<h4><img src='{% static "magni.png" %}' height = 30 width = 30 class='d-inline-block alighn top'> Hunted By {{product.hunter.username}}</h4>
+	</div>
+	<div class='col-6 pull-right'>
+		<h4><img src='{% static "clock.png" %}' height = 30 width = 30 class='d-inline-block alighn top'> {{ product.pub_date }}</h4>
+	</div>
+</div>
+<div class='row'>
+	<div class='col-8'>
+		<p>{{product.body}}</p>
+	</div>
+	
+</div>
+
+<form id='upvote' method="POST" action='{% url "upvote" product.id %}'>
+	{% csrf_token %}
+	<input type="hidden">
+
+</form>
+
+
+{% endblock %}
